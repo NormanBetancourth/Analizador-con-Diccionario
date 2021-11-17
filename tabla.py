@@ -12,4 +12,3 @@ class Tabla_de_simbolos:
 
     def __str__(self):
         return f"{print(self.diccionario)}"
-

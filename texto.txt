@@ -1,0 +1,8 @@
+int x
+x = 40
+void function(float v, string n){
+if (v > 0.0){
+n = “Mayor”
+x = x + 5
+}
+}
