@@ -18,7 +18,7 @@ errorTypes = {1: "variable sin declaracion previa",
 def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por espacios en un array
     if linea[0] not in dataTypes and linea[0] not in diccionario:
         # variable no declarada (no es tipo de dato valido ni existe la  variable)
-        print(f"Error de sintaxis: {errorTypes[1]} en la linea {numeroLinea}")
+        print(f"Error de sintaxis: no hay ninguna declaracion de la variable {linea[0]} en la linea {numeroLinea}")
         return
 
     # variable declarada
@@ -35,16 +35,17 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                     diccionario[key].value = diccionario[linea[2]].value
                     return
                 if diccionario[key].type != diccionario[linea[2]].type:
-                    print(f"Error de sintaxis: {errorTypes[2]} en la linea {numeroLinea}")
+                    print(f"Error de sintaxis: no se puede pasar de {diccionario[key].type} a {diccionario[linea[2]].type} en la linea {numeroLinea}")
                     return
 
 
             else:# estamos asignando a un valor, no a una variable
                 tipoDato = diccionario[key].type
+
                 # no coincide el tipo
                 if tipoDato == "int":
                     if not linea[2].isnumeric():
-                        print(f"Error de sintaxis: el tipo de dato no coincide ({tipoDato}) en la linea {numeroLinea}")
+                        print(f"Error de sintaxis: no se puede pasar de {tipoDato} en la linea {numeroLinea}")
                         return
                     else:
                         diccionario[key].value = linea[2]
@@ -55,7 +56,7 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                 if tipoDato == "float":
                     valor = linea[2].replace(".", "").replace("-", "").replace("+", "").replace(" ", "")
                     if not valor.isnumeric():
-                        print(f"Error de sintaxis: el tipo de dato no cioncide ({tipoDato}) en la linea {numeroLinea}")
+                        print(f"Error de sintaxis: no se puede pasar de {tipoDato} a {linea[2]} en la linea {numeroLinea}")
                         return
                     else:
                         diccionario[key].value = linea[2]
@@ -68,11 +69,16 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                         diccionario[key].value = linea[2]
                         return
                     else:
-                        print(f"Error de sintaxis: el tipo de dato no coincide ({tipoDato}) en la linea {numeroLinea}")
-                        return
-                else:
-                    # caso de que no sea valor y sea una var que no esta en el diccionario
-                    print(f"Error de sintaxis: la variable {linea[2]} no ha sido declarada en la linea {numeroLinea}")
+                        if string[0] == chr(34) or string[len(string) - 1] == chr(34):
+                            print(f"Error de sintaxis: el tipo de dato no coincide con ({tipoDato}) en la linea {numeroLinea}")
+                            return
+                        else:
+                            # caso de que no sea valor y sea una var que no esta en el diccionario
+                            print(f"Error de sintaxis: la variable {linea[2]} no ha sido declarada en la linea {numeroLinea}")
+
+
+
+
 
 
 
@@ -112,33 +118,40 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                             # 2) = valor
                             # Coincidir tipo de variable con valor
                             if tipoDato == "int":
-                                if not linea[2].isnumeric():
-                                    print(
-                                        f"Error de sintaxis: el tipo de dato no coincide ({tipoDato}) en la linea {numeroLinea}")
+                                if not linea[3].isnumeric():
+                                    print(f"Error de sintaxis: el tipo de dato no coincide ({tipoDato}) en la linea {numeroLinea}")
                                     return
                                 else:
                                     diccionario[key] = Variable(key, None, tipoDato)
                                     return
 
                             if tipoDato == "float":
-                                valor = linea[3].replace(".", "").replace("-", "").replace("+", "").replace(" ",
-                                                                                                            "")  # quitamos simbolos o puntos
+                                vv = linea[3]
+                                valor = linea[3].replace(".", "").replace("-", "").replace("+", "").replace(" ","")  # quitamos simbolos o puntos
                                 if not valor.isnumeric():
                                     print(f"Error de sintaxis: el tipo de dato no cioncide ({tipoDato}) en la linea {numeroLinea}")
                                     return
                                 else:
-                                    diccionario[key] = Variable(key, None, tipoDato)
+                                    diccionario[key] = Variable(key, vv, tipoDato)
                                     return
 
-                            # no tiene ""
                             if tipoDato == "string":
                                 string = linea[3]
                                 if string[0] == chr(34) and string[len(string) - 1] == chr(34):
                                     diccionario[key]= Variable(key, string, tipoDato)
                                     return
                                 else:
-                                    print(f"Error de sintaxis: el tipo de dato no coincide ({tipoDato}) en la linea {numeroLinea}")
-                                    return
+                                    if string[0] == chr(34) or string[len(string) - 1] == chr(34):
+                                        print(f"Error de sintaxis: el tipo de dato no coincide con ({tipoDato}) en la linea {numeroLinea}")
+                                        return
+                                    else:
+                                        # caso de que no sea valor y sea una var que no esta en el diccionario
+                                        print(f"Error de sintaxis: la variable {linea[3]} no ha sido declarada en la linea {numeroLinea}")
+
+
+
+
+
 
                 else:
                     # declaracion sola(int x)

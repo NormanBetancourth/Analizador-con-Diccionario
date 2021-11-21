@@ -5,5 +5,5 @@ int x = 1000
 x = 1000
 int c = x
 string String = "texto"
-float f = 100.1
-f = x
+float f = pp
+x = ff
