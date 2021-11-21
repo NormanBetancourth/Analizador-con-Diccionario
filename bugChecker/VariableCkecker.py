@@ -1,7 +1,7 @@
 # Analiza si una sentencia (linea de texto es valida)
 # Documentacion y tipos de errores ->
 # https://mint-mine-d87.notion.site/Errores-98f348b9da8d4a1e9f134cfccdd79d92
-from Variable import Variable
+from parts.Variable import Variable
 
 dataTypes = ["int", "float", "string"]
 symbols = ["+", "-", "=", "/", "*"]
