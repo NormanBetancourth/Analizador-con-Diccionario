@@ -10,7 +10,7 @@ from tabla import Tabla_de_simbolos
 tablaDeSimbolos = Tabla_de_simbolos()
 lineReader("texto.txt", tablaDeSimbolos.diccionario)
 
-print(tablaDeSimbolos.diccionario)
+print(f"{tablaDeSimbolos.diccionario}")
 
 
 
