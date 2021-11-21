@@ -1,5 +1,5 @@
-from textAnalizer import lineReader
-from tabla import Tabla_de_simbolos
+from parts.textAnalizer import lineReader
+from parts.tabla import Tabla_de_simbolos
 #
 # t = Tabla_de_simbolos()
 #
@@ -8,7 +8,7 @@ from tabla import Tabla_de_simbolos
 #
 # print(t)
 tablaDeSimbolos = Tabla_de_simbolos()
-lineReader("texto.txt", tablaDeSimbolos.diccionario)
+lineReader("codeFile/texto.txt", tablaDeSimbolos.diccionario)
 
 print(f"{tablaDeSimbolos.diccionario}")
 
