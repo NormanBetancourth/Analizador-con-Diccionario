@@ -1,5 +1,5 @@
 from textAnalizer import lineReader
-# from tabla import Tabla_de_simbolos
+from tabla import Tabla_de_simbolos
 #
 # t = Tabla_de_simbolos()
 #
@@ -7,13 +7,11 @@ from textAnalizer import lineReader
 # t.add( "caracter", 'c', "char")
 #
 # print(t)
+tablaDeSimbolos = Tabla_de_simbolos()
+lineReader("texto.txt", tablaDeSimbolos.diccionario)
 
-lineReader("texto.txt")
+print(tablaDeSimbolos.diccionario)
 
-#limpiar floats o datos
-a = "-123.001 11".replace(".","").replace("-","").replace("+","").replace(" ","")
-
-k = [1,2,3]
 
 
 
