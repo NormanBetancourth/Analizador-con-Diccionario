@@ -45,7 +45,7 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                 # no coincide el tipo
                 if tipoDato == "int":
                     if not linea[2].isnumeric():
-                        print(f"Error de sintaxis: no se puede pasar de {tipoDato} en la linea {numeroLinea}")
+                        print(f"Error de sintaxis: error de asignacion en la linea {numeroLinea}")
                         return
                     else:
                         diccionario[key].value = linea[2]
@@ -56,7 +56,7 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                 if tipoDato == "float":
                     valor = linea[2].replace(".", "").replace("-", "").replace("+", "").replace(" ", "")
                     if not valor.isnumeric():
-                        print(f"Error de sintaxis: no se puede pasar de {tipoDato} a {linea[2]} en la linea {numeroLinea}")
+                        print(f"Error de sintaxis: error de asignacion en la linea {numeroLinea}")
                         return
                     else:
                         diccionario[key].value = linea[2]
@@ -119,7 +119,7 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                             # Coincidir tipo de variable con valor
                             if tipoDato == "int":
                                 if not linea[3].isnumeric():
-                                    print(f"Error de sintaxis: el tipo de dato no coincide ({tipoDato}) en la linea {numeroLinea}")
+                                    print(f"Error de sintaxis: error de asignacion en la linea {numeroLinea}")
                                     return
                                 else:
                                     diccionario[key] = Variable(key, None, tipoDato)
@@ -129,7 +129,7 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                                 vv = linea[3]
                                 valor = linea[3].replace(".", "").replace("-", "").replace("+", "").replace(" ","")  # quitamos simbolos o puntos
                                 if not valor.isnumeric():
-                                    print(f"Error de sintaxis: el tipo de dato no cioncide ({tipoDato}) en la linea {numeroLinea}")
+                                    print(f"Error de sintaxis: error de asignacion en la linea {numeroLinea}")
                                     return
                                 else:
                                     diccionario[key] = Variable(key, vv, tipoDato)

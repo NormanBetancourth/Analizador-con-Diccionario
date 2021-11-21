@@ -6,4 +6,4 @@ x = 1000
 int c = x
 string String = "texto"
 float f = pp
-x = ff
+x = c
