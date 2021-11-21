@@ -100,7 +100,7 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
 
                     #evita -> int var var ...
                     if linea[2] != "=":
-                        print(f"Error de sintaxis: se esperaba un '=' despues de {linea[1]} en la linea {numeroLinea}")
+                        print(f"Error de sintaxis: se esperaba un '=' despues de {linea[2]} en la linea {numeroLinea}")
                         return
                     else:#si viene el = en buen orden
                         # 1) = variable
@@ -122,7 +122,7 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                                     print(f"Error de sintaxis: error de asignacion en la linea {numeroLinea}")
                                     return
                                 else:
-                                    diccionario[key] = Variable(key, None, tipoDato)
+                                    diccionario[key] = Variable(key, linea[3], tipoDato)
                                     return
 
                             if tipoDato == "float":
