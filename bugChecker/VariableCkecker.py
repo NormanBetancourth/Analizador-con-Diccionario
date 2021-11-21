@@ -31,12 +31,13 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
 
         if linea[1] == "=":
             if linea[2] in diccionario: #asignamos una variable a otra variable (var 2 esta en el diccionario)
+                if diccionario[key].type == "int" and diccionario[linea[2]].type == "float" or  diccionario[key].type == "float" and diccionario[linea[2]].type == "int" :
+                    diccionario[key].value = diccionario[linea[2]].value
+                    return
                 if diccionario[key].type != diccionario[linea[2]].type:
                     print(f"Error de sintaxis: {errorTypes[2]} en la linea {numeroLinea}")
                     return
-                else:
-                    diccionario[key].value = diccionario[linea[2]].value
-                    return
+
 
             else:# estamos asignando a un valor, no a una variable
                 tipoDato = diccionario[key].type
@@ -99,7 +100,13 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                         # 1) = variable
                         if linea[3] in diccionario:
                             keyVariable2 = linea[3]
-                            diccionario[key] = Variable(key, diccionario[keyVariable2].value, tipoDato)
+                            if tipoDato == diccionario[keyVariable2].type:
+                                diccionario[key] = Variable(key, diccionario[keyVariable2].value, tipoDato)
+                            else:
+                                print(
+                                    f"Error de sintaxis: no se puede asignar {tipoDato} a {diccionario[keyVariable2].type} en la linea {numeroLinea}")
+
+
 
                         else:
                             # 2) = valor
@@ -127,7 +134,7 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                             if tipoDato == "string":
                                 string = linea[3]
                                 if string[0] == chr(34) and string[len(string) - 1] == chr(34):
-                                    diccionario[key]= Variable(key, None, tipoDato)
+                                    diccionario[key]= Variable(key, string, tipoDato)
                                     return
                                 else:
                                     print(f"Error de sintaxis: el tipo de dato no coincide ({tipoDato}) en la linea {numeroLinea}")
