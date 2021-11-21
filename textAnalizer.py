@@ -1,4 +1,7 @@
-def lineReader(file):
+import bugChecker.VariableCkecker
+
+
+def lineReader(file, diccionario):
     #O(n²)
     f = open(file, encoding="utf8")
     index =0
@@ -16,15 +19,18 @@ def lineReader(file):
 
                 #entra cuando se crea un nuevo scope
                 if  "if" in palabras or  "while" in palabras:
+                    pass
                     #print("es un condicional o ciclo")
-                    pass
-                else:
-                    #print("es una funcion")
-                    pass
-            else:
-                #print(lienaCruda[0])
 
+                else:
+                    pass
+                    #print("es una funcion")
+
+            else:
                 print(palabras)
+                bugChecker.VariableCkecker.analizer(palabras, index, diccionario)
+
+
 
 
     f.close()

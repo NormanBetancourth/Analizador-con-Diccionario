@@ -1,14 +1,6 @@
 int x
-x = 40
-void function (float v, string n){
-if (v > 0.0){
-n = “Mayor”
-x = 5
-}
-}
-int sumatoria (int limite){
-float limite = 100
-while (limite > 10){
-x = -1
-}
-}
+x = 90
+v = 88
+int x = 1000
+x = 1000
+int c = x

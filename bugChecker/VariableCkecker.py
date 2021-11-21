@@ -41,13 +41,16 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
             else:# estamos asignando a un valor, no a una variable
                 tipoDato = diccionario[key].type
                 # no coincide el tipo
-                if tipoDato == "int" and linea[2].isnumeric() == False:
-                    print(f"Error de sintaxis: el tipo de dato no coincide ({tipoDato}) en la linea {numeroLinea}")
-                    return
-                else:
-                    diccionario[key].value = linea[2]
+                if tipoDato == "int":
+                    if not linea[2].isnumeric():
+                        print(f"Error de sintaxis: el tipo de dato no coincide ({tipoDato}) en la linea {numeroLinea}")
+                        return
+                    else:
+                        diccionario[key].value = linea[2]
+                        return
 
-                # no coincide el tipo
+
+                        # no coincide el tipo
                 if tipoDato == "float":
                     valor = linea[2].replace(".", "").replace("-", "").replace("+", "").replace(" ", "")
                     if not valor.isnumeric():
@@ -75,7 +78,7 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
     # declarar nueva variable, key not in diccionario
     else:
         tipoDato = key
-        key = diccionario[1]
+        key = linea[1]
         if tipoDato in dataTypes:#el primer valor es de tipo valido
             if linea[1] in diccionario: #redeclaracion de variable
                 print(f"Error de sintaxis: redeclaracion de la variable {linea[1]} en la linea {numeroLinea}")
@@ -95,15 +98,20 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                     else:#si viene el = en buen orden
                         # 1) = variable
                         if linea[3] in diccionario:
-                            pass
+                            keyVariable2 = linea[3]
+                            diccionario[key] = Variable(key, diccionario[keyVariable2].value, tipoDato)
+
                         else:
                             # 2) = valor
                             # Coincidir tipo de variable con valor
-                            if tipoDato == "int" and linea[3].isnumeric() == False:
-                                print(f"Error de sintaxis: el tipo de dato no coincide ({tipoDato}) en la linea {numeroLinea}")
-                                return
-                            else:
-                                diccionario[key] = Variable(key, linea[3], tipoDato)
+                            if tipoDato == "int":
+                                if not linea[2].isnumeric():
+                                    print(
+                                        f"Error de sintaxis: el tipo de dato no coincide ({tipoDato}) en la linea {numeroLinea}")
+                                    return
+                                else:
+                                    diccionario[key] = Variable(key, None, tipoDato)
+                                    return
 
                             if tipoDato == "float":
                                 valor = linea[3].replace(".", "").replace("-", "").replace("+", "").replace(" ",
@@ -112,14 +120,14 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                                     print(f"Error de sintaxis: el tipo de dato no cioncide ({tipoDato}) en la linea {numeroLinea}")
                                     return
                                 else:
-                                    diccionario[key] = Variable(key, linea[3], tipoDato)
+                                    diccionario[key] = Variable(key, None, tipoDato)
                                     return
 
                             # no tiene ""
                             if tipoDato == "string":
                                 string = linea[3]
                                 if string[0] == chr(34) and string[len(string) - 1] == chr(34):
-                                    diccionario[key]= Variable(key, linea[3], tipoDato)
+                                    diccionario[key]= Variable(key, None, tipoDato)
                                     return
                                 else:
                                     print(f"Error de sintaxis: el tipo de dato no coincide ({tipoDato}) en la linea {numeroLinea}")
@@ -138,8 +146,9 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                             print(f"Error de sintaxis: redeclaracion de la variable {linea[1]} en la linea {numeroLinea}")
                             return
                         else:
-                            var = Variable(linea[1], None, key)
-                            diccionario[linea[1]] = var
+                            var = Variable(key, None, tipoDato)
+                            print(linea)
+                            diccionario[key] = var
 
 
 
