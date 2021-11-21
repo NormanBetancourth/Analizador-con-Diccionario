@@ -1,4 +1,4 @@
-from Variable import Variable
+from parts.Variable import Variable
 
 
 class Tabla_de_simbolos:
@@ -14,3 +14,7 @@ class Tabla_de_simbolos:
 
     def __str__(self):
         return f"{print(self.diccionario)}"
+
+    def agregar(self, i):
+        a = Variable(i.key, i.value, i.type)
+        self.diccionario[i.key] = a

@@ -44,7 +44,8 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
 
                 # no coincide el tipo
                 if tipoDato == "int":
-                    if not linea[2].isnumeric():
+                    valor = linea[2].replace("-", "").replace("+", "")
+                    if not valor.isnumeric():
                         print(f"Error de sintaxis: error de asignacion en la linea {numeroLinea}")
                         return
                     else:
@@ -118,7 +119,8 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                             # 2) = valor
                             # Coincidir tipo de variable con valor
                             if tipoDato == "int":
-                                if not linea[3].isnumeric():
+                                valor = linea[3].replace("-", "").replace("+", "")
+                                if not valor.isnumeric():
                                     print(f"Error de sintaxis: error de asignacion en la linea {numeroLinea}")
                                     return
                                 else:
