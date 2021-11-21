@@ -11,10 +11,15 @@ def lineReader(file, diccionario):
         lienaCruda[0].strip("\n")
 
 
+
+
+
+
         index += 1
         if len(lienaCruda) > 0 and lienaCruda[0] != "{" and lienaCruda[0] != "}":
 
             palabras = lienaCruda[0].split(" ")
+            palabras = [x for x in palabras if x != ""]
             if "(" in lienaCruda[0] and ")" in lienaCruda[0]:
 
                 #entra cuando se crea un nuevo scope

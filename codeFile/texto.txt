@@ -8,3 +8,15 @@ string String = "texto"
 float f = 121.2
 x = c
 int a = 10
+void function (float v, string n){
+    if (v > 0.0){
+        n = “Mayor”
+        x = 5
+    }
+}
+int sumatoria (int limite){
+    float limite = 100
+    while (limite > 10){
+        x = -1
+    }
+}
