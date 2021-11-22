@@ -1,41 +1,28 @@
-int x
-x = 90
-v = 88
-int x = 1000
-x = 1000
 
-float foo = 100.1 + x
-
-int c = 9999 + x
-string ss = "texto" + "asdsd"
-
-
-
-
-x = c + 9090 + -9999 + x
-int a = 10
-
-
-
-void function ( float v, string n ){
+void function(float v, string n, int x){
     if (v > 0.0){
-        n = “Mayor”
+        n = "Mayor"
         x = 5 
     }
+    float xar = 900 + x
 }
 
 
-int sumatoria (int limite){
-    float limite = 100
+int function(int limite){
     while (limite > 10){
         x = -1
+
     }
+
+
+
+
 }
 
-float ff = 888
+float ff
 
 
 string s2
-s2 = "100" + ss + "Holamundo"
+s2 = "100" + "Holamundo"
 
-int coche = 100.1 - 18 - ff
+int coche = 1001 - 18

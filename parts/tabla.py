@@ -18,3 +18,6 @@ class Tabla_de_simbolos:
     def agregar(self, i):
         a = Variable(i.key, i.value, i.type)
         self.diccionario[i.key] = a
+
+    def agregarFuncion(self, funcion):
+        self.diccionario[funcion.key] = funcion

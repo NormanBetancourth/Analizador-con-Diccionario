@@ -2,6 +2,7 @@
 # Documentacion y tipos de errores ->
 # https://mint-mine-d87.notion.site/Errores-98f348b9da8d4a1e9f134cfccdd79d92
 from parts.Variable import Variable
+from parts.funcion import Funcion
 
 dataTypes = ["int", "float", "string"]
 symbols = ["+", "-", "=", "/", "*"]
@@ -91,7 +92,6 @@ def analizerVariablesPreDDeclaradas(linea, numeroLinea, diccionario, key):
         if tipoDato == "string":
             bandera = True
             for i in range(2, len(linea)):
-                print(linea[i])
                 if linea[i] not in diccionario:
                     if linea[i] != "+":
                         string = linea[i]
@@ -145,7 +145,7 @@ def analizerVariablesNODeclaradas(linea, numeroLinea, diccionario, key, tipoDato
             else:
 
                 if tipoDato == "int":
-                    print(linea)
+
                     bandera = True
                     for i in range(3, len(linea)):
                         if linea[i] not in diccionario:
@@ -178,7 +178,7 @@ def analizerVariablesNODeclaradas(linea, numeroLinea, diccionario, key, tipoDato
                         return
 
                 if tipoDato == "float":
-                    print(linea)
+
                     bandera = True
                     for i in range(3, len(linea)):
                         if linea[i] not in diccionario:
@@ -213,7 +213,7 @@ def analizerVariablesNODeclaradas(linea, numeroLinea, diccionario, key, tipoDato
                 if tipoDato == "string":
                     bandera = True
                     for i in range(3, len(linea)):
-                        print(linea[i])
+
                         if linea[i] not in diccionario:
                             if linea[i] != "+":
                                 string = linea[i]
@@ -281,3 +281,22 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
         else:
             print(f"Error de sintaxis en la linea {numeroLinea}")
             return
+
+
+def funcionAnalizer(linea, numeroLinea, diccionario, parametros):
+    datta = ["int", "float", "string", "void"]
+    symbolos = ["+", "-", "=", "/", "*"]
+
+    ddataType = linea[0]
+    key = linea[1]
+
+    if ddataType in datta == False:
+        print(f"Error de sintaxis: tipo de dato no valido {linea[0]} en la linea {numeroLinea}")
+        return None
+    else:
+        if key in diccionario:
+            print(f"Error de sintaxis: la funcion {linea[0]} ya ha sido definida previamente  (linea {numeroLinea})")
+        else:
+            return Funcion(ddataType, key, parametros)
+
+
