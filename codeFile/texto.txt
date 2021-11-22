@@ -4,13 +4,18 @@ v = 88
 int x = 1000
 x = 1000
 
+float foo = 100.1 + x
 
-int c = 9999
-string String = "texto"
+int c = 9999 + x
+string ss = "texto" + "asdsd"
 
 
-x = c
+
+
+x = c + 9090 + -9999 + x
 int a = 10
+
+
 
 void function ( float v, string n ){
     if (v > 0.0){
@@ -26,3 +31,11 @@ int sumatoria (int limite){
         x = -1
     }
 }
+
+float ff = 888
+
+
+string s2
+s2 = "100" + ss + "Holamundo"
+
+int coche = 100.1 - 18 - ff
