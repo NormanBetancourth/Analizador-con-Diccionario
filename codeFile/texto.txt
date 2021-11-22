@@ -13,7 +13,7 @@ float summ(int limite, string sstream){
     while(limite > 10){
         x = -1
         int otroINt = 90
-        return sese + 90
+        return 90 - 99  + sese + 90
 
     }
 
@@ -24,6 +24,14 @@ int foo(int limite, string sstream){
     int sese = 0000 + limite
     while(limite > 10){
         int otroINt = 90
-        return sese - 889
+        return 99 -  sese - 889
+    }
+}
+
+void foo(int limite, string sstream){
+    int sese = 0000 + limite
+    while(limite > 10){
+        int otroINt = 90
+        return 99 -  sese - 889
     }
 }
