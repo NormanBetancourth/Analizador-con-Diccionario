@@ -8,7 +8,8 @@ void function(float v, string n, int x){
 }
 
 
-int summ(int limite){
+int summ (int limite){
+    float sese = 0000 + limite
     while (limite > 10){
         x = -1
 
@@ -18,11 +19,3 @@ int summ(int limite){
 
 
 }
-
-float ff
-
-
-string s2
-s2 = "100" + "Holamundo"
-
-int coche = 1001 - 18
