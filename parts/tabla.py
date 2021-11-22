@@ -21,3 +21,5 @@ class Tabla_de_simbolos:
 
     def agregarFuncion(self, funcion):
         self.diccionario[funcion.key] = funcion
+
+

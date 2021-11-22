@@ -289,7 +289,7 @@ def funcionAnalizer(linea, numeroLinea, diccionario, parametros):
 
     palabras = linea.split(" ")
     palabras = [x for x in palabras if palabras != ""]
-    print(palabras)
+    #print(palabras)
 
     ddataType = palabras[0]
     key = palabras[1]
@@ -303,7 +303,7 @@ def funcionAnalizer(linea, numeroLinea, diccionario, parametros):
             print(f"Error de sintaxis: la funcion {palabras[1]} ya ha sido definida previamente  (linea {numeroLinea})")
         else:
             if key not in datta and key not in symbolos:
-                print(f"Key = {key} - tipo = {ddataType}")
+                #print(f"Key = {key} - tipo = {ddataType}")
                 car = Funcion(ddataType, key, parametros)
                 return car
             else:

@@ -10,3 +10,8 @@ class Funcion:
 
     def __repr__(self):
         return f"{self.type}  {self.key} [ {self.tabla_de_simbolos.diccionario} ]"
+
+    def updateDict(self, diccionario):
+        self.tabla_de_simbolos.extenderDiccionario(diccionario)
+
+

@@ -3,6 +3,7 @@ from parts.funcion import Funcion
 from parts.tabla import Tabla_de_simbolos
 
 
+
 def lineReader(file, diccionario):
     f = open(file, encoding="utf8")
     index = 0
@@ -15,6 +16,7 @@ def lineReader(file, diccionario):
         cantidad = len(lienaCruda)
         lienaCruda[0].strip("\n")
         index += 1
+        bandera = False
 
         if openedNewScope and len(lienaCruda) > 0:
             # while este abierto el cuerpo de la funcion ...
@@ -31,16 +33,22 @@ def lineReader(file, diccionario):
                     else:
                         pila.append("{")
 
+            if "{" not in palabras and "}" not in palabras and len(palabras) > 0:
+
+                if any("while" in x for x in palabras) or any("if" in x for x in palabras):
+                    print(f"======> {palabras}")
+                else:
+                    bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
+                    FuncionAux.updateDict(TablaAuxiliar.diccionario)
+
+
             if len(pila) == 0:
                 openedNewScope = False
                 if FuncionAux:
+
                     diccionario[FuncionAux.key] = FuncionAux
                     print(FuncionAux)
 
-
-            if "{" not in palabras and "}" not in palabras and len(palabras) > 0:
-                print(f"======> {palabras}")
-                bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
 
         if len(lienaCruda) > 0 and lienaCruda[0] != "{" and lienaCruda[0] != "}" and openedNewScope == False:
 
@@ -68,7 +76,6 @@ def lineReader(file, diccionario):
                         palabras = kj.split(" ")
                         palabras = [x for x in palabras if x != ""]
                         bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
-
                     FuncionAux = bugChecker.VariableCkecker.funcionAnalizer(funcSTR, index, diccionario, TablaAuxiliar.diccionario)
 
                     openedNewScope = True
