@@ -1,22 +1,22 @@
-int x
-x = 90
-v = 88
-int x = 1000
-x = 1000
-int c = x
-string String = "texto"
-float f = 121.2
-x = c
-int a = 10
-void function (float v, string n){
+
+void function(float v, string n, int x){
     if (v > 0.0){
-        n = “Mayor”
-        x = 5
+        n = "Mayor"
+        x = 5 
     }
+    float xar = 900 + x
 }
-int sumatoria (int limite){
-    float limite = 100
-    while (limite > 10){
+
+
+int summ(int limite){
+    float sese = 0000 + limite
+    while(limite > 10){
         x = -1
+        int otroINt = 90
+
     }
+
+
+
+
 }

@@ -1,41 +1,90 @@
 import bugChecker.VariableCkecker
+from parts.funcion import Funcion
+from parts.tabla import Tabla_de_simbolos
+
 
 
 def lineReader(file, diccionario):
-    #O(n²)
     f = open(file, encoding="utf8")
-    index =0
-    for linea in f:# n -> cada linea
+    index = 0
+    openedNewScope = False
+    pila = []
+    TablaAuxiliar = Tabla_de_simbolos()
+    FuncionAux = None
+    for linea in f:  # n -> cada linea
         lienaCruda = linea.split("\n")
         cantidad = len(lienaCruda)
         lienaCruda[0].strip("\n")
-
-
-
-
-
-
         index += 1
-        if len(lienaCruda) > 0 and lienaCruda[0] != "{" and lienaCruda[0] != "}":
+        bandera = False
+
+        if openedNewScope and len(lienaCruda) > 0:
+            # while este abierto el cuerpo de la funcion ...
 
             palabras = lienaCruda[0].split(" ")
             palabras = [x for x in palabras if x != ""]
-            if "(" in lienaCruda[0] and ")" in lienaCruda[0]:
 
-                #entra cuando se crea un nuevo scope
-                if  "if" in palabras or  "while" in palabras:
-                    pass
-                    #print("es un condicional o ciclo")
+            for x in palabras:
+                if "{" in x:
+                    pila.append("{")
+                if "}" in x:
+                    if pila[len(pila) - 1] == "{":
+                        pila.pop()
+                    else:
+                        pila.append("{")
+
+            if "{" not in palabras and "}" not in palabras and len(palabras) > 0:
+
+                if any("while" in x for x in palabras) or any("if" in x for x in palabras):
+                    print(f"======> {palabras}")
+                else:
+                    bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
+                    FuncionAux.updateDict(TablaAuxiliar.diccionario)
+
+
+            if len(pila) == 0:
+                openedNewScope = False
+                if FuncionAux:
+
+                    diccionario[FuncionAux.key] = FuncionAux
+                    print(FuncionAux)
+
+
+        if len(lienaCruda) > 0 and lienaCruda[0] != "{" and lienaCruda[0] != "}" and openedNewScope == False:
+
+            palabras = lienaCruda[0].split(" ")
+            palabras = [x for x in palabras if x != ""]
+
+            if len(palabras) > 0:
+
+                if "(" in lienaCruda[0] and ")" in lienaCruda[0] and "while" not in linea[0] and "if" not in linea[0]:
+
+                    # entra y en las proximas iteraciones va a quedarse enciclada
+                    lowTail = lienaCruda[0].index("(")
+                    hiTail = lienaCruda[0].index(")")
+
+                    stringAux = lienaCruda[0][lowTail + 1:hiTail].split(",")
+                    funcSTR = lienaCruda[0][:lowTail]
+
+
+
+
+
+                    TablaAuxiliar = Tabla_de_simbolos()
+
+                    for kj in stringAux:
+                        palabras = kj.split(" ")
+                        palabras = [x for x in palabras if x != ""]
+                        bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
+                    FuncionAux = bugChecker.VariableCkecker.funcionAnalizer(funcSTR, index, diccionario, TablaAuxiliar.diccionario)
+
+                    openedNewScope = True
+                    pila.append("{")
+
+
 
                 else:
-                    pass
-                    #print("es una funcion")
-
-            else:
-                print(palabras)
-                bugChecker.VariableCkecker.analizer(palabras, index, diccionario)
-
-
-
+                    # print(palabras)
+                    bugChecker.VariableCkecker.analizer(palabras, index, diccionario)
 
     f.close()
