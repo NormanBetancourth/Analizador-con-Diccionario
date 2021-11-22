@@ -8,7 +8,7 @@ void function(float v, string n, int x){
 }
 
 
-int function(int limite){
+int summ(int limite){
     while (limite > 10){
         x = -1
 

@@ -7,3 +7,6 @@ class Funcion:
         self.type = type
         self.tabla_de_simbolos = Tabla_de_simbolos()
         self.tabla_de_simbolos.diccionario.update(tabla)
+
+    def __repr__(self):
+        return f"{self.type}  {self.key} [ {self.tabla_de_simbolos.diccionario} ]"

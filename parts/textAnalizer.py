@@ -33,7 +33,9 @@ def lineReader(file, diccionario):
 
             if len(pila) == 0:
                 openedNewScope = False
-                print(TablaAuxiliar)
+                if FuncionAux:
+                    diccionario[FuncionAux.key] = FuncionAux
+                    print(FuncionAux)
 
 
             if "{" not in palabras and "}" not in palabras and len(palabras) > 0:

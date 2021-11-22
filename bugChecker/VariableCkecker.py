@@ -287,16 +287,26 @@ def funcionAnalizer(linea, numeroLinea, diccionario, parametros):
     datta = ["int", "float", "string", "void"]
     symbolos = ["+", "-", "=", "/", "*"]
 
-    ddataType = linea[0]
-    key = linea[1]
+    palabras = linea.split(" ")
+    palabras = [x for x in palabras if palabras != ""]
+    print(palabras)
+
+    ddataType = palabras[0]
+    key = palabras[1]
+
 
     if ddataType in datta == False:
-        print(f"Error de sintaxis: tipo de dato no valido {linea[0]} en la linea {numeroLinea}")
+        print(f"Error de sintaxis: tipo de dato no valido {palabras[0]} en la linea {numeroLinea}")
         return None
     else:
         if key in diccionario:
-            print(f"Error de sintaxis: la funcion {linea[0]} ya ha sido definida previamente  (linea {numeroLinea})")
+            print(f"Error de sintaxis: la funcion {palabras[1]} ya ha sido definida previamente  (linea {numeroLinea})")
         else:
-            return Funcion(ddataType, key, parametros)
+            if key not in datta and key not in symbolos:
+                print(f"Key = {key} - tipo = {ddataType}")
+                car = Funcion(ddataType, key, parametros)
+                return car
+            else:
+                print(f"Error de sintaxis: uso incorrecto de palabra reservada {key}  (linea {numeroLinea})")
 
 
