@@ -310,3 +310,106 @@ def funcionAnalizer(linea, numeroLinea, diccionario, parametros):
                 print(f"Error de sintaxis: uso incorrecto de palabra reservada {key}  (linea {numeroLinea})")
 
 
+def returnAnalizer(palabras, index, diccionario, type):
+
+    if palabras[0] != "return" :
+        print(f"Error de sintaxis: de {palabras[0]} en la linea {index}")
+        return
+    else:
+        if len(palabras) == 1:
+            if type != "void":
+                print(f"Error de sintaxis: debe retornar un valor de tipo {type}  (linea {index})")
+                return
+        else:
+            newKey = palabras[1]
+            if newKey not in symbols:
+
+                if type == "void":
+                    print(f"Error de sintaxis: la funcion no retorna nada {palabras[0]} en la linea {index}")
+                    return
+                if type == "float":
+                    bandera = True
+                    for i in range(1, len(palabras)):
+                        if palabras[i] not in dataTypes and palabras[i] != "void":
+                            if palabras[i] not in diccionario:
+                                if palabras[i] not in symbols:
+                                    valor = palabras[i].replace(".", "").replace("-", "").replace("+", "")
+                                    print(valor)
+                                    if not valor.isnumeric():
+                                        bandera = False
+                                        break
+                                    else:
+                                        if palabras[i - 1] not in symbols:
+                                            bandera = False
+                                            break
+                                else:
+                                    if i == len(palabras) - 1:
+                                        bandera = False
+                                        break
+                            else:  # si esta en el diccionario
+                                if diccionario[palabras[i]].type == "string":
+                                    bandera = False
+                                    break
+                                else:
+                                    if palabras[i - 1] not in symbols and i > 1:
+                                        bandera = False
+                                        break
+                        else:
+                            print(f"Error de sintaxis: return no valido en la linea {index}")
+                            return
+                    if not bandera:
+                        print(f"Error de sintaxis: return invalido en la linea {index}")
+                        return
+
+
+                if type == "int":
+                    bandera = True
+                    for i in range(1, len(palabras)):
+                        if palabras[i] not in dataTypes and palabras[i] != "void":
+                            if palabras[i] not in diccionario:
+                                if palabras[i] not in symbols:
+                                    valor = palabras[i].replace("-", "").replace("+", "")
+                                    print(valor)
+                                    if not valor.isnumeric():
+                                        bandera = False
+                                        break
+                                    else:
+                                        if palabras[i - 1] not in symbols:
+                                            bandera = False
+                                            break
+                                else:
+                                    if i == len(palabras) - 1:
+                                        bandera = False
+                                        break
+                            else:  # si esta en el diccionario
+                                if diccionario[palabras[i]].type != "int":
+                                    bandera = False
+                                    break
+                                else:
+                                    if palabras[i - 1] not in symbols and i > 1:
+                                        bandera = False
+                                        break
+                        else:
+                            print(f"Error de sintaxis: return no valido en la linea {index}")
+                            return
+                    if not bandera:
+                        print(f"Error de sintaxis: return invalido en la linea {index}")
+                        return
+
+
+                if type == "string":
+                    pass
+
+
+
+
+
+
+            else:
+                print(f"Error de sintaxis: en la linea {index}")
+                return
+
+
+
+
+

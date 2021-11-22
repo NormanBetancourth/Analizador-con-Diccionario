@@ -8,15 +8,22 @@ void function(float v, string n, int x){
 }
 
 
-int summ(int limite){
+float summ(int limite, string sstream){
     float sese = 0000 + limite
     while(limite > 10){
         x = -1
         int otroINt = 90
+        return sese + 90
 
     }
 
 
+}
 
-
+int foo(int limite, string sstream){
+    int sese = 0000 + limite
+    while(limite > 10){
+        int otroINt = 90
+        return sese - 889
+    }
 }

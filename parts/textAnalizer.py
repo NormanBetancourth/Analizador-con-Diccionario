@@ -38,8 +38,12 @@ def lineReader(file, diccionario):
                 if any("while" in x for x in palabras) or any("if" in x for x in palabras):
                     print(f"======> {palabras}")
                 else:
-                    bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
-                    FuncionAux.updateDict(TablaAuxiliar.diccionario)
+                    if "return" in palabras:
+                        print(palabras)
+                        bugChecker.VariableCkecker.returnAnalizer(palabras, index, TablaAuxiliar.diccionario, FuncionAux.type)
+                    else:
+                        bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
+                        FuncionAux.updateDict(TablaAuxiliar.diccionario)
 
 
             if len(pila) == 0:
