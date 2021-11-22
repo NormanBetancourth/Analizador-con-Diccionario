@@ -169,7 +169,6 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
                             return
                         else:
                             var = Variable(key, None, tipoDato)
-                            print(linea)
                             diccionario[key] = var
 
 

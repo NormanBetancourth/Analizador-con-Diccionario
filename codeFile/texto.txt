@@ -3,17 +3,23 @@ x = 90
 v = 88
 int x = 1000
 x = 1000
-int c = x
+
+
+int c = 9999
 string String = "texto"
-float f = 121.2
+
+
 x = c
 int a = 10
-void function (float v, string n){
+
+void function ( float v, string n ){
     if (v > 0.0){
         n = “Mayor”
-        x = 5
+        x = 5 
     }
 }
+
+
 int sumatoria (int limite){
     float limite = 100
     while (limite > 10){
