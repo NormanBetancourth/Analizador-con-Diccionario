@@ -2,28 +2,28 @@
 void function(float v, string n, int x){
     if (v > 0.0){
         n = "Mayor"
-        x = 5 
+        x = 5
     }
     float xar = 900 + x
 }
 
 
-float summ(int limite, string sstream){
-    float sese = 0000 + limite
-    while(limite > 10){
-        x = -1
-        int otroINt = 90
-        return sese + 90
+int d
+d = 999
 
+int foo(int foo1, string foo2){
+    int foo3 = 0000 + foo1
+    while(foo1 > 10){
+        float foo8 = foo3 + 90
+
+        return 99 -  foo8 - 889
     }
-
-
 }
 
-int foo(int limite, string sstream){
+void foo(int limite, string sstream){
     int sese = 0000 + limite
     while(limite > 10){
-        int otroINt = 90
-        return sese - 889
+        int otroINt = 0
+        return 99 -  sese - 889
     }
 }
