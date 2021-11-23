@@ -19,7 +19,9 @@ def lineReader(file, diccionario):
         bandera = False
 
         if openedNewScope and len(lienaCruda) > 0:
-            # while este abierto el cuerpo de la funcion ...
+            # while este abierto el cuerpo de la funcion ..
+
+
 
             palabras = lienaCruda[0].split(" ")
             palabras = [x for x in palabras if x != ""]
@@ -33,25 +35,32 @@ def lineReader(file, diccionario):
                     else:
                         pila.append("{")
 
+
+
+
+
             if "{" not in palabras and "}" not in palabras and len(palabras) > 0:
 
                 if any("while" in x for x in palabras) or any("if" in x for x in palabras):
-                    print(f"======> {palabras}")
+                    #print(f"======> {palabras}")
+                    pass
                 else:
-                    if "return" in palabras:
-                        print(palabras)
+                    if "return" in palabras and FuncionAux:
+
                         bugChecker.VariableCkecker.returnAnalizer(palabras, index, TablaAuxiliar.diccionario, FuncionAux.type)
                     else:
                         bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
-                        FuncionAux.updateDict(TablaAuxiliar.diccionario)
-
+                        if FuncionAux:
+                            FuncionAux.updateDict(TablaAuxiliar.diccionario)
 
             if len(pila) == 0:
                 openedNewScope = False
                 if FuncionAux:
-
                     diccionario[FuncionAux.key] = FuncionAux
                     print(FuncionAux)
+                FuncionAux = None
+                pila = []
+
 
 
         if len(lienaCruda) > 0 and lienaCruda[0] != "{" and lienaCruda[0] != "}" and openedNewScope == False:
@@ -70,20 +79,21 @@ def lineReader(file, diccionario):
                     stringAux = lienaCruda[0][lowTail + 1:hiTail].split(",")
                     funcSTR = lienaCruda[0][:lowTail]
 
-
-
-
-
                     TablaAuxiliar = Tabla_de_simbolos()
+                    FuncionAux = bugChecker.VariableCkecker.funcionAnalizer(funcSTR, index, diccionario,TablaAuxiliar.diccionario)
+
 
                     for kj in stringAux:
                         palabras = kj.split(" ")
                         palabras = [x for x in palabras if x != ""]
                         bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
-                    FuncionAux = bugChecker.VariableCkecker.funcionAnalizer(funcSTR, index, diccionario, TablaAuxiliar.diccionario)
 
-                    openedNewScope = True
                     pila.append("{")
+                    openedNewScope = True
+
+
+
+
 
 
 

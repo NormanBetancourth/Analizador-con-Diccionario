@@ -131,7 +131,7 @@ def analizerVariablesNODeclaradas(linea, numeroLinea, diccionario, key, tipoDato
         print(f"Error de sintaxis: redeclaracion de la variable {linea[1]} en la linea {numeroLinea}")
         return
     else:  # creamos nueva variable
-        if len(linea) > 2:  # declaracion y asignacion (int x = value)
+        if len(linea) > 3:  # declaracion y asignacion (int x = value)
 
             # evita -> tipo tipo = ...
             if linea[1] in dataTypes:
@@ -329,12 +329,12 @@ def returnAnalizer(palabras, index, diccionario, type):
                 if type == "float":
                     bandera = True
                     for i in range(1, len(palabras)):
-                        print(palabras[i])
+
                         if palabras[i] not in dataTypes and palabras[i] != "void":
                             if palabras[i] not in diccionario:
                                 if palabras[i] not in symbols:
                                     valor = palabras[i].replace(".", "").replace("-", "").replace("+", "")
-                                    print(valor)
+
                                     if not valor.isnumeric():
                                         bandera = False
                                         break
@@ -368,7 +368,7 @@ def returnAnalizer(palabras, index, diccionario, type):
                             if palabras[i] not in diccionario:
                                 if palabras[i] not in symbols:
                                     valor = palabras[i].replace("-", "").replace("+", "")
-                                    print(valor)
+
                                     if not valor.isnumeric():
                                         bandera = False
                                         break
