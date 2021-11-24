@@ -42,12 +42,12 @@ def lineReader(file, diccionario):
 
                 if any("while" in x for x in palabras) or any("if" in x for x in palabras):
                     print(f"======> {lienaCruda[0]}")
+                    
 
                     pass
                 else:
                     if "return" in palabras and FuncionAux:
                         debeReturn = False
-
 
                         bugChecker.VariableCkecker.returnAnalizer(palabras, index, TablaAuxiliar.diccionario, FuncionAux.type)
                     else:
@@ -99,12 +99,6 @@ def lineReader(file, diccionario):
 
                     pila.append("{")
                     openedNewScope = True
-
-
-
-
-
-
 
                 else:
                     # print(palabras)
