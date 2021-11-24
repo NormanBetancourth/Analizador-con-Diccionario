@@ -20,7 +20,7 @@ int foo(int foo1, string foo2){
     }
 }
 
-int funcion2(int limite, string sstream){
+int suma(int limite, string sstream){
     int sese = 0000 + limite
     while(limite > 10){
         int otroINt = 0

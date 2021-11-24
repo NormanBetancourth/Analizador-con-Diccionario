@@ -2,10 +2,9 @@ import bugChecker.VariableCkecker
 from parts.funcion import Funcion
 from parts.tabla import Tabla_de_simbolos
 
-
-
 def lineReader(file, diccionario):
     f = open(file, encoding="utf8")
+    debeReturn = False
     index = 0
     openedNewScope = False
     pila = []
@@ -42,10 +41,13 @@ def lineReader(file, diccionario):
             if "{" not in palabras and "}" not in palabras and len(palabras) > 0:
 
                 if any("while" in x for x in palabras) or any("if" in x for x in palabras):
-                    #print(f"======> {palabras}")
+                    print(f"======> {lienaCruda[0]}")
+
                     pass
                 else:
                     if "return" in palabras and FuncionAux:
+                        debeReturn = False
+
 
                         bugChecker.VariableCkecker.returnAnalizer(palabras, index, TablaAuxiliar.diccionario, FuncionAux.type)
                     else:
@@ -54,6 +56,10 @@ def lineReader(file, diccionario):
                             FuncionAux.updateDict(TablaAuxiliar.diccionario)
 
             if len(pila) == 0:
+                if debeReturn:
+                    print(f"La funcion debe retornar un valor (linea {index-1})")
+
+
                 openedNewScope = False
                 if FuncionAux:
                     diccionario[FuncionAux.key] = FuncionAux
@@ -79,9 +85,12 @@ def lineReader(file, diccionario):
                     stringAux = lienaCruda[0][lowTail + 1:hiTail].split(",")
                     funcSTR = lienaCruda[0][:lowTail]
 
-                    TablaAuxiliar = Tabla_de_simbolos()
-                    FuncionAux = bugChecker.VariableCkecker.funcionAnalizer(funcSTR, index, diccionario,TablaAuxiliar.diccionario)
 
+                    TablaAuxiliar = Tabla_de_simbolos()
+
+                    if "void" not in funcSTR:
+                        debeReturn = True
+                    FuncionAux = bugChecker.VariableCkecker.funcionAnalizer(funcSTR, index, diccionario,TablaAuxiliar.diccionario)
 
                     for kj in stringAux:
                         palabras = kj.split(" ")
