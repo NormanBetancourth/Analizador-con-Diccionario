@@ -3,8 +3,9 @@ void function(float v, string n, int x){
     if (v > 0.0){
         n = "Mayor"
         x = 5
+        float ss = 0
+        float xar = 900 + x
     }
-    float xar = 900 + x
 }
 
 
@@ -26,4 +27,9 @@ int suma(int limite, string sstream){
         int otroINt = 0
         return 99 -  sese - 889
     }
+}
+
+int funcionSinParams(){
+    int x = 10
+    return x
 }
