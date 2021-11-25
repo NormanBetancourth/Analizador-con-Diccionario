@@ -23,6 +23,8 @@ void function(float v, string n, int x){
         int variable2 = 1
         int variable3 = 3
     }
+
+    variable3 = 3
 }
 
 

@@ -58,8 +58,8 @@ def lineReader(file, diccionario):
                             pilaScopeCondicional.pop()
                         else:
                             pilaScopeCondicional.append("{")
-                print(f"dentro del condicional {palabras}")
-                print(f"pila de condicional {pilaScopeCondicional}")
+                print(f"{pilaScopeCondicional} ---> {index}")
+
 
                 if any("while" in x for x in palabras) or any("if" in x for x in palabras):
 
@@ -90,12 +90,15 @@ def lineReader(file, diccionario):
                     aux = pilaAnidados.pop()
                     ObjectCondicionalFijo = aux[0]
                     pilaScopeCondicional = aux[1]
+                    pilaScopeCondicional.pop()
                     print(f"pppppppppppppppp{ObjectCondicionalFijo}")
-                    print(f"pppppppppppppppp{pilaScopeCondicional}")
+
 
                 if len(pilaScopeCondicional) == 0 and len(pilaAnidados) == 0:
                     print(f"Salio del condicional en la linea {index}")
                     ScopeCondicional = False
+
+
 
             else:
                 if len(palabras) > 0:
@@ -110,8 +113,6 @@ def lineReader(file, diccionario):
                         lowtail = lienaCruda[0].index("(")
                         hitail = lienaCruda[0].index(")")
                         parametrosCondicion = lienaCruda[0][lowtail + 1:hitail]
-                        print(parametrosCondicion)
-                        print(TablaAuxiliar)
                         if FuncionAux:
                             FuncionAux.updateDict(TablaAuxiliar.diccionario)
                         ObjectCondicionalFijo = CondiIterable(condition, FuncionAux.tabla_de_simbolos.diccionario)
@@ -136,8 +137,6 @@ def lineReader(file, diccionario):
                                     # archivo y metalos a la tabla de simbolos de la funcion actual
                                     FuncionAux.updateDict(TablaAuxiliar.diccionario)
 
-                                    print(f"Aqui se updatea (Funcion){FuncionAux.tabla_de_simbolos.diccionario}")
-                                    print(f"Aqui se updatea (Tabla aux){TablaAuxiliar.diccionario}")
 
             # ver cuando se cierra la pila de {}, si es asi,
             # el cuerpo de la funcion ha terminado
