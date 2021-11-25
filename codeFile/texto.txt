@@ -3,8 +3,23 @@ void function(float v, string n, int x){
     if (v > 0.0){
         n = "Mayor"
         x = 5
+        float xar = 900 + x
     }
-    float xar = 900 + x
+
+    int z = 0
+
+    if (v > 0.0){
+        int variable1 = 1
+
+        if (v > 0.0){
+            int variable2 = 1
+            int variable3 = 3
+        }
+        int variable2 = 1
+        int variable3 = 3
+    }
+
+    variable3 = 3
 }
 
 
@@ -13,17 +28,23 @@ d = 999
 
 int foo(int foo1, string foo2){
     int foo3 = 0000 + foo1
-    while(foo1 > 10){
+    while(foo1 > 10) {
         float foo8 = foo3 + 90
 
         return 99 -  foo8 - 889
     }
+
 }
 
-void foo(int limite, string sstream){
+int suma(int limite, string sstream){
     int sese = 0000 + limite
     while(limite > 10){
         int otroINt = 0
         return 99 -  sese - 889
     }
+}
+
+int funcionSinParams(){
+    int x = 10
+    return x
 }
