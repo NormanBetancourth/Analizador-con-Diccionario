@@ -1,25 +1,35 @@
 import bugChecker.VariableCkecker
+from parts.Condicional_Iterable import CondiIterable
 from parts.funcion import Funcion
 from parts.tabla import Tabla_de_simbolos
+
 
 def lineReader(file, diccionario):
     f = open(file, encoding="utf8")
 
-    #objetos auxiliares para las funciones
+    # objetos auxiliares para las funciones
     debeReturn = False
     openedNewScope = False
     pila = []
     FuncionAux = None
 
     TablaAuxiliar = Tabla_de_simbolos()
+    ObjectCondicionalFijo = None #if/ while inicial fijo
 
     index = 0
-    #objetos auxiliares para if o while
+    # objetos auxiliares para if o while
     ScopeCondicional = False
     pilaScopeCondicional = []
 
+    pilaAnidados = []
+    # pila para ir guardando los ifs o whiles anidados y la pila con los {}
+    # en una lista [if/while , pila de {}] => [ObjectCondicionalAux, pilaLimitesAnidados]
+
+    ObjectCondicionalAux = None  # objeto para almacenar los elementos del scope actual de if y while
+    pilaLimitesAnidados = []
+
     for linea in f:  # n -> cada linea
-        #limpiamos los elementos que no nos interesan de la linea de texto
+        # limpiamos los elementos que no nos interesan de la linea de texto
         lienaCruda = linea.split("\n")
         cantidad = len(lienaCruda)
         lienaCruda[0].strip("\n")
@@ -39,10 +49,9 @@ def lineReader(file, diccionario):
                     else:
                         pila.append("{")
 
-
-            #condicional para cuando se abra un while
-            if ScopeCondicional and len(palabras)>0:
-                #para ifs o whiles
+            # condicional para cuando se abra un while
+            if ScopeCondicional and len(palabras) > 0:
+                # para ifs o whiles
                 for x in palabras:
                     if "{" in x:
                         pilaScopeCondicional.append("{")
@@ -52,34 +61,44 @@ def lineReader(file, diccionario):
                         else:
                             pilaScopeCondicional.append("{")
                 print(f"dentro del condicional {palabras}")
-                if "{" not in palabras and "}" not in palabras:
-                    if "return" in palabras and FuncionAux:
-                        # caso para analizar el return de una funcion, que este exista y que coincida con tipos, etc
-                        debeReturn = False
-                        # bugChecker.VariableCkecker.returnAnalizer(palabras, index, TablaAuxiliar.diccionario,
-                        #                                           FuncionAux.type) #TODO cambiar a objeto if-while
 
-                    else:
-                        # si no => es un caso de variable normal
-                        #bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
-                        if FuncionAux:
-                            pass
-                            # si la funcion auxiliar != None => actualize los objetos que se sacaron del
-                            # archivo y metalos a la tabla de simbolos de la funcion actual
-                            #FuncionAux.updateDict(TablaAuxiliar.diccionario)
+                if any("while" in x for x in palabras) or any("if" in x for x in palabras):
+                    if len(pilaAnidados) > 0:
+                        aux = [ObjectCondicionalAux, pilaLimitesAnidados]
+                        pilaAnidados.append(aux)
+                        pilaLimitesAnidados = []
 
+                    pass
 
-
+                else:
+                    if "{" not in palabras and "}" not in palabras:
+                        if "return" in palabras and FuncionAux:
+                            # caso para analizar el return de una funcion, que este exista y que coincida con tipos, etc
+                            debeReturn = False
+                            # bugChecker.VariableCkecker.returnAnalizer(palabras, index, TablaAuxiliar.diccionario,
+                            #                                           FuncionAux.type)
+                        else:
+                            # si no => es un caso de variable normal
+                            # bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
+                            if FuncionAux:
+                                pass
+                                # si la funcion auxiliar != None => actualize los objetos que se sacaron del
+                                # archivo y metalos a la tabla de simbolos de la funcion actual
+                                # FuncionAux.updateDict(TablaAuxiliar.diccionario)
 
                 if len(pilaScopeCondicional) == 0:
                     print(f"Salio del condicional en la linea {index}")
                     ScopeCondicional = False
             else:
                 if len(palabras) > 0:
-                    #condicional que abre el while
+                    # condicional que abre el while
                     if any("while" in x for x in palabras) or any("if" in x for x in palabras):
                         print(f"======> {lienaCruda[0]}")
-                        #separamos los parametros
+                        condition = ""
+                        if any("while" in x for x in palabras):
+                            condition = "while"
+                        else:
+                            condition = "if"
                         lowtail = lienaCruda[0].index("(")
                         hitail = lienaCruda[0].index(")")
                         parametrosCondicion = lienaCruda[0][lowtail + 1:hitail]
@@ -87,40 +106,37 @@ def lineReader(file, diccionario):
                         print(TablaAuxiliar)
                         if FuncionAux:
                             FuncionAux.updateDict(TablaAuxiliar.diccionario)
+                        ObjectCondicionalFijo = CondiIterable(condition, FuncionAux.tabla_de_simbolos.diccionario)
+                        print(f"condi FIJOOOOOOOOO {ObjectCondicionalFijo}")
 
-
-                        #activamos la condicion de condicional
+                        # activamos la condicion de condicional
                         ScopeCondicional = True
-                        #metemos el objeto a la pila  para ver en que momento cierra
+                        # metemos el objeto a la pila  para ver en que momento cierra
                         pilaScopeCondicional.append("{")
 
                     else:
                         if "{" not in palabras and "}" not in palabras:
                             if "return" in palabras and FuncionAux:
-                                #caso para analizar el return de una funcion, que este exista y que coincida con tipos, etc
+                                # caso para analizar el return de una funcion, que este exista y que coincida con tipos, etc
                                 debeReturn = False
                                 bugChecker.VariableCkecker.returnAnalizer(palabras, index, TablaAuxiliar.diccionario,
                                                                           FuncionAux.type)
                             else:
-                                #si no => es un caso de variable normal
+                                # si no => es un caso de variable normal
                                 bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
                                 if FuncionAux:
-
-
-                                    #si la funcion auxiliar != None => actualize los objetos que se sacaron del
-                                    #archivo y metalos a la tabla de simbolos de la funcion actual
+                                    # si la funcion auxiliar != None => actualize los objetos que se sacaron del
+                                    # archivo y metalos a la tabla de simbolos de la funcion actual
                                     FuncionAux.updateDict(TablaAuxiliar.diccionario)
 
                                     print(f"Aqui se updatea (Funcion){FuncionAux.tabla_de_simbolos.diccionario}")
                                     print(f"Aqui se updatea (Tabla aux){TablaAuxiliar.diccionario}")
 
-
-            #ver cuando se cierra la pila de {}, si es asi,
+            # ver cuando se cierra la pila de {}, si es asi,
             # el cuerpo de la funcion ha terminado
             if len(pila) == 0:
                 if debeReturn:
-                    print(f"La funcion debe retornar un valor (linea {index-1})")
-
+                    print(f"La funcion debe retornar un valor (linea {index - 1})")
 
                 openedNewScope = False
                 if FuncionAux:
@@ -128,8 +144,6 @@ def lineReader(file, diccionario):
                     print(f"-->{FuncionAux}")
                 FuncionAux = None
                 pila = []
-
-
 
         if len(lienaCruda) > 0 and lienaCruda[0] != "{" and lienaCruda[0] != "}" and openedNewScope == False:
 
@@ -147,14 +161,12 @@ def lineReader(file, diccionario):
                     stringAux = lienaCruda[0][lowTail + 1:hiTail].split(",")
                     funcSTR = lienaCruda[0][:lowTail]
 
-
-
                     TablaAuxiliar = Tabla_de_simbolos()
-
 
                     if "void" not in funcSTR:
                         debeReturn = True
-                    FuncionAux = bugChecker.VariableCkecker.funcionAnalizer(funcSTR, index, diccionario,TablaAuxiliar.diccionario)
+                    FuncionAux = bugChecker.VariableCkecker.funcionAnalizer(funcSTR, index, diccionario,
+                                                                            TablaAuxiliar.diccionario)
 
                     if len(stringAux) > 0 and stringAux[0] != "":
                         for kj in stringAux:

@@ -6,6 +6,14 @@ void function(float v, string n, int x){
         float ss = 0
         float xar = 900 + x
     }
+
+
+    int z = 0
+    if (v > 0.0){
+        int variable1 = 1
+        int variable2 = 1
+        int variable3 = 3
+    }
 }
 
 
