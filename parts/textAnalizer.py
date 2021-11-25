@@ -10,6 +10,9 @@ def lineReader(file, diccionario):
     pila = []
     TablaAuxiliar = Tabla_de_simbolos()
     FuncionAux = None
+
+    ScopeCondicional = False
+    pilaScopeCondicional = []
     for linea in f:  # n -> cada linea
         lienaCruda = linea.split("\n")
         cantidad = len(lienaCruda)
@@ -34,26 +37,44 @@ def lineReader(file, diccionario):
                     else:
                         pila.append("{")
 
+            if ScopeCondicional and len(palabras)>0:#encicla para ifs o whiles
+                print(palabras)
+                for x in palabras:
+                    if "{" in x:
+                        pilaScopeCondicional.append("{")
+                    if "}" in x:
+                        if pilaScopeCondicional[len(pila) - 1] == "{":
+                            pilaScopeCondicional.pop()
+                        else:
+                            pilaScopeCondicional.append("{")
+
+            else:
+                if len(palabras) > 0:
+
+                    if any("while" in x for x in palabras) or any("if" in x for x in palabras):
+                        print(f"======> {lienaCruda[0]}")
+                        lowtail = lienaCruda[0].index("(")
+                        hitail = lienaCruda[0].index(")")
+                        parametrosCondicion = lienaCruda[0][lowtail + 1:hitail]
+                        print(parametrosCondicion)
+                        print(TablaAuxiliar)
+                        ScopeCondicional = True
+                        pilaScopeCondicional.append("{")
 
 
-
-
-            if "{" not in palabras and "}" not in palabras and len(palabras) > 0:
-
-                if any("while" in x for x in palabras) or any("if" in x for x in palabras):
-                    print(f"======> {lienaCruda[0]}")
-                    
-
-                    pass
-                else:
-                    if "return" in palabras and FuncionAux:
-                        debeReturn = False
-
-                        bugChecker.VariableCkecker.returnAnalizer(palabras, index, TablaAuxiliar.diccionario, FuncionAux.type)
                     else:
-                        bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
-                        if FuncionAux:
-                            FuncionAux.updateDict(TablaAuxiliar.diccionario)
+                        if "{" not in palabras and "}" not in palabras:
+                            if "return" in palabras and FuncionAux:
+                                debeReturn = False
+
+                                bugChecker.VariableCkecker.returnAnalizer(palabras, index, TablaAuxiliar.diccionario,
+                                                                          FuncionAux.type)
+                            else:
+                                bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
+                                if FuncionAux:
+                                    FuncionAux.updateDict(TablaAuxiliar.diccionario)
+
+
 
             if len(pila) == 0:
                 if debeReturn:

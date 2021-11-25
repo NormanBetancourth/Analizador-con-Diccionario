@@ -13,7 +13,7 @@ d = 999
 
 int foo(int foo1, string foo2){
     int foo3 = 0000 + foo1
-    while(foo1 > 10){
+    while(foo1 > 10) {
         float foo8 = foo3 + 90
 
         return 99 -  foo8 - 889
