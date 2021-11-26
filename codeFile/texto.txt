@@ -38,6 +38,8 @@ int foo(int foo1, string foo2){
 
 }
 
+int alphanum = 90
+
 void foo(int var1, string var2){
     int var3 = 0000 + var1
     while(var1 > 10) {
@@ -47,6 +49,7 @@ void foo(int var1, string var2){
     }
 
 }
+
 
 
 int suma(int limite, string sstream){
