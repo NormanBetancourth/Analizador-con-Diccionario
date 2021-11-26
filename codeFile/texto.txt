@@ -38,6 +38,16 @@ int foo(int foo1, string foo2){
 
 }
 
+void foo(int var1, string var2){
+    int var3 = 0000 + var1
+    while(var1 > 10) {
+        float var4 = 10
+
+        return 99 -  var2 - 889
+    }
+
+}
+
 
 int suma(int limite, string sstream){
     int sese = 0000 + limite
