@@ -58,7 +58,6 @@ def lineReader(file, diccionario):
                             pilaScopeCondicional.pop()
                         else:
                             pilaScopeCondicional.append("{")
-                print(f"{pilaScopeCondicional} ---> {index}")
 
 
                 if any("while" in x for x in palabras) or any("if" in x for x in palabras):
@@ -67,11 +66,22 @@ def lineReader(file, diccionario):
                         typeCondicion = "while"
                     else:
                         typeCondicion = "if"
+
                     tablaD = ObjectCondicionalFijo.tabla_de_simbolos
                     aux = [ObjectCondicionalFijo, pilaScopeCondicional]
                     pilaAnidados.append(aux)
                     pilaScopeCondicional = ["{"]
+                    # limpiamos la linea de texto
+                    lowtailaux = lienaCruda[0].index("(")
+                    hitailAux = lienaCruda[0].index(")")
+                    parametters = lienaCruda[0][lowtailaux + 1:hitailAux]
+
+
+                    # analizamos los parametros del if/while
+                    bugChecker.VariableCkecker.parametterAnalizer(parametters, index,
+                                                                  ObjectCondicionalFijo.tabla_de_simbolos.diccionario)
                     ObjectCondicionalFijo = CondiIterable(typeCondicion, tablaD.diccionario)
+
                 else:
                     if "{" not in palabras and "}" not in palabras:
                         if "return" in palabras and FuncionAux:
@@ -186,7 +196,8 @@ def lineReader(file, diccionario):
                         for kj in stringAux:
                             palabras = kj.split(" ")
                             palabras = [x for x in palabras if x != ""]
-                            bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
+                            if len(palabras) > 0:
+                                bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
 
                     pila.append("{")
                     openedNewScope = True
