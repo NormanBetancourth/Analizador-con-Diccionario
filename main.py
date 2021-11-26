@@ -14,3 +14,4 @@ print(f"{tablaDeSimbolos.diccionario}")
 
 
 
+
