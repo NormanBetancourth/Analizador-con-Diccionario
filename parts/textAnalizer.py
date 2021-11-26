@@ -110,12 +110,20 @@ def lineReader(file, diccionario):
                             condition = "while"
                         else:
                             condition = "if"
+                        #limpiamos la linea de texto
                         lowtail = lienaCruda[0].index("(")
                         hitail = lienaCruda[0].index(")")
                         parametrosCondicion = lienaCruda[0][lowtail + 1:hitail]
+
+                        #actualizamos las variables de la funcion
                         if FuncionAux:
                             FuncionAux.updateDict(TablaAuxiliar.diccionario)
+                        #analizamos los parametros del if/while
+                        bugChecker.VariableCkecker.parametterAnalizer(parametrosCondicion, index, FuncionAux.tabla_de_simbolos.diccionario)
+
                         ObjectCondicionalFijo = CondiIterable(condition, FuncionAux.tabla_de_simbolos.diccionario)
+
+
 
                         # activamos la condicion de condicional
                         ScopeCondicional = True

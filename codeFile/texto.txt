@@ -1,5 +1,5 @@
 
-void function(float v, string n, int x){
+void function(int v, string n, int x){
     if (v > 0.0){
         n = "Mayor"
         x = 5
@@ -8,7 +8,7 @@ void function(float v, string n, int x){
 
     int z = 0
 
-    if (v > 0.0){
+    if (      v >  "as"    ){
         int variable1 = 1
 
         if (v > 0.0){

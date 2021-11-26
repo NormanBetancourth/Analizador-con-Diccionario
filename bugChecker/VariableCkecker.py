@@ -430,3 +430,71 @@ def returnAnalizer(palabras, index, diccionario, type):
             else:
                 print(f"Error de sintaxis: en la linea {index}")
                 return
+
+
+
+
+
+def validComparison(type1, type2, index):
+    if type1 != type2:
+        if type1 == "string" or type2 == "string":
+            return False
+    return True
+
+def typeClasifier(variable):
+    valor = variable.replace("-", "")
+    print(valor)
+    if valor.isdigit():
+        print("result es int")
+        return "int"
+    valor = variable.replace(".", "").replace("-", "").replace("+", "")
+    print(valor)
+    if valor.isdigit():
+        print("result es float")
+        return "float"
+    size = len(variable)
+    if variable[0] == chr(34) and variable[size - 1] == chr(34):
+        print("result es str")
+        return "string"
+    return "unknown"
+
+def parametterAnalizer(linea, index, diccionario):
+    operadores = ["==", "!=", ">", ">=", "<", "<="]
+    palabras = linea.split(" ")
+    palabras = [x for x in palabras if x != ""]
+    print(f"parametros del condicional => {palabras}")
+    if len(palabras) == 3:
+        if palabras[1] not in operadores:
+            print(f"Error de sintaxis: {palabras[1]} no es un operador valido")
+            return
+        else:
+            if palabras[0] not in operadores and palabras[2] not in operadores:
+                if palabras[0] in diccionario:
+                    tipoPrimerOperador = diccionario[palabras[0]].type
+                    print(tipoPrimerOperador)
+                else:
+                    #valida si es de tipo valido
+                    tipoPrimerOperador = typeClasifier(palabras[0])
+                    print(tipoPrimerOperador)
+                if palabras[2] in diccionario:
+                    tipoSegundoOperador = diccionario[palabras[2]].type
+                    print(tipoSegundoOperador)
+                else:
+                    #valida si es de tipo valido
+                    tipoSegundoOperador = typeClasifier(palabras[2])
+                    print(tipoSegundoOperador)
+
+                if tipoPrimerOperador != "unknown" and tipoSegundoOperador != "unknown":
+                    if not validComparison(tipoPrimerOperador, tipoSegundoOperador, index):
+                        print(f"Error de sintaxis: no se puede comparar el valor de {palabras[0]}({tipoPrimerOperador})  con el valor de ({palabras[2]})({tipoSegundoOperador})")
+                        return
+
+                else:
+                    print(f"Error de sintaxis: los parametros no son validos linea {index}")
+                    return
+            else:
+                print(f"Error de sintaxis: mal uso de operadores en la linea {index}")
+                return
+    else:
+        print(f"Error de sintaxis: parametros no validos en la linea {index}")
+        return
