@@ -128,10 +128,9 @@ def lineReader(file, diccionario):
                         #actualizamos las variables de la funcion
                         if FuncionAux:
                             FuncionAux.updateDict(TablaAuxiliar.diccionario)
-                        #analizamos los parametros del if/while
-                        bugChecker.VariableCkecker.parametterAnalizer(parametrosCondicion, index, FuncionAux.tabla_de_simbolos.diccionario)
-
-                        ObjectCondicionalFijo = CondiIterable(condition, FuncionAux.tabla_de_simbolos.diccionario)
+                            #analizamos los parametros del if/while
+                            bugChecker.VariableCkecker.parametterAnalizer(parametrosCondicion, index, FuncionAux.tabla_de_simbolos.diccionario)
+                            ObjectCondicionalFijo = CondiIterable(condition, FuncionAux.tabla_de_simbolos.diccionario)
 
 
 
