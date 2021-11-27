@@ -202,7 +202,6 @@ def lineReader(file, diccionario):
                     openedNewScope = True
 
                 else:
-                    # print(palabras)
                     bugChecker.VariableCkecker.analizer(palabras, index, diccionario)
 
     f.close()

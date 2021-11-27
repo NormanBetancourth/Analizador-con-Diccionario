@@ -267,20 +267,24 @@ def analizer(linea, numeroLinea, diccionario):  # la linea viene separada por es
         print(f"Error de sintaxis: no hay ninguna declaracion de la variable {linea[0]} en la linea {numeroLinea}")
         return
 
-    key = linea[0]
-    # variable pre declarada
-    if key in diccionario:
-        analizerVariablesPreDDeclaradas(linea, numeroLinea, diccionario, key)
-
-    # declarar nueva variable, key not in diccionario
+    if len(linea) == 1:
+        print(f"Error de sintaxis: en la linea {numeroLinea}")
+        return
     else:
-        tipoDato = key
-        key = linea[1]
-        if tipoDato in dataTypes:  # el primer valor es de tipo valido
-            analizerVariablesNODeclaradas(linea, numeroLinea, diccionario, key, tipoDato)
+        key = linea[0]
+        # variable pre declarada
+        if key in diccionario:
+            analizerVariablesPreDDeclaradas(linea, numeroLinea, diccionario, key)
+
+        # declarar nueva variable, key not in diccionario
         else:
-            print(f"Error de sintaxis en la linea {numeroLinea}")
-            return
+            tipoDato = key
+            key = linea[1]
+            if tipoDato in dataTypes:  # el primer valor es de tipo valido
+                analizerVariablesNODeclaradas(linea, numeroLinea, diccionario, key, tipoDato)
+            else:
+                print(f"Error de sintaxis en la linea {numeroLinea}")
+                return
 
 
 def funcionAnalizer(linea, numeroLinea, diccionario, parametros):
