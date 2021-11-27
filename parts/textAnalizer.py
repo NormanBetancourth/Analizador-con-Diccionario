@@ -90,22 +90,19 @@ def lineReader(file, diccionario):
                             bugChecker.VariableCkecker.returnAnalizer(palabras, index, ObjectCondicionalFijo.tabla_de_simbolos.diccionario,
                                                                        FuncionAux.type)
                         else:
-                            print(f"~~~~~~~~~~~~~~~~~~~~~~~~{ObjectCondicionalFijo} linea ({index})")
                             # si no => es un caso de variable normal
                             bugChecker.VariableCkecker.analizer(palabras, index, ObjectCondicionalFijo.tabla_de_simbolos.diccionario)
-                            print(f"~~~~~~~~~~~~~~~~~~~~~~~~{ObjectCondicionalFijo} linea ({index})")
 
 
-                if len(pilaScopeCondicional) == 0 and len(pilaAnidados) > 0:
-                    aux = pilaAnidados.pop()
+                if len(pilaScopeCondicional) == 0 and len(pilaAnidados) > 0: #cierra un scope anidado, pero todavia hay otros el pila
+                    aux = pilaAnidados.pop()#sacamos la pila {} y el objeto auxiliar
                     ObjectCondicionalFijo = aux[0]
                     pilaScopeCondicional = aux[1]
                     pilaScopeCondicional.pop()
-                    print(f"pppppppppppppppp{ObjectCondicionalFijo}")
 
 
                 if len(pilaScopeCondicional) == 0 and len(pilaAnidados) == 0:
-                    print(f"Salio del condicional en la linea {index}")
+                    #si no hay mas scopes anidados => cierra el subciclo
                     ScopeCondicional = False
 
 
@@ -114,7 +111,6 @@ def lineReader(file, diccionario):
                 if len(palabras) > 0:
                     # condicional que abre el while
                     if any("while" in x for x in palabras) or any("if" in x for x in palabras):
-                        print(f"======> {lienaCruda[0]}")
                         condition = ""
                         if any("while" in x for x in palabras):
                             condition = "while"
@@ -164,7 +160,6 @@ def lineReader(file, diccionario):
                 openedNewScope = False
                 if FuncionAux:
                     diccionario[FuncionAux.key] = FuncionAux
-                    print(f"-->{FuncionAux}")
                 FuncionAux = None
                 pila = []
 
@@ -178,12 +173,16 @@ def lineReader(file, diccionario):
                 if "(" in lienaCruda[0] and ")" in lienaCruda[0] and "while" not in linea[0] and "if" not in linea[0]:
 
                     # entra y en las proximas iteraciones va a quedarse enciclada
+
+                    #sacamos los indices de los parametros
                     lowTail = lienaCruda[0].index("(")
                     hiTail = lienaCruda[0].index(")")
 
+                    #separamos por , y creamos una lista
                     stringAux = lienaCruda[0][lowTail + 1:hiTail].split(",")
                     funcSTR = lienaCruda[0][:lowTail]
 
+                    #creamos una tabla de simbolos auxiliar para cada entrada a funcion
                     TablaAuxiliar = Tabla_de_simbolos()
 
                     if "void" not in funcSTR:
@@ -198,10 +197,11 @@ def lineReader(file, diccionario):
                             if len(palabras) > 0:
                                 bugChecker.VariableCkecker.analizer(palabras, index, TablaAuxiliar.diccionario)
 
-                    pila.append("{")
+                    pila.append("{")#metemos a la pila para empezar el scope
                     openedNewScope = True
 
                 else:
+                    #analiza variables comunes fuera de funciones
                     bugChecker.VariableCkecker.analizer(palabras, index, diccionario)
 
     f.close()
