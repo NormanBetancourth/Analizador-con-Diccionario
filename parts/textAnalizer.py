@@ -2,10 +2,14 @@ import bugChecker.VariableCkecker
 from parts.Condicional_Iterable import CondiIterable
 from parts.funcion import Funcion
 from parts.tabla import Tabla_de_simbolos
+from parts.Variable import Variable
 
 
 def lineReader(file, diccionario):
     f = open(file, encoding="utf8")
+    #variables auxiliar para guardar el tipo de dato de una funcion
+    var = Variable("indef", None, "indef")
+    tipoVariable = type(var)
 
     # objetos auxiliares para las funciones
     debeReturn = False
@@ -171,7 +175,6 @@ def lineReader(file, diccionario):
             if len(palabras) > 0:
 
                 if "(" in lienaCruda[0] and ")" in lienaCruda[0] and "while" not in linea[0] and "if" not in linea[0]:
-
                     # entra y en las proximas iteraciones va a quedarse enciclada
 
                     #sacamos los indices de los parametros
@@ -183,7 +186,11 @@ def lineReader(file, diccionario):
                     funcSTR = lienaCruda[0][:lowTail]
 
                     #creamos una tabla de simbolos auxiliar para cada entrada a funcion
+                    #print(diccionario)
                     TablaAuxiliar = Tabla_de_simbolos()
+                    for j in diccionario:
+                        if tipoVariable == type(diccionario[j]):
+                            TablaAuxiliar.agregarFuncion(diccionario[j])
 
                     if "void" not in funcSTR:
                         debeReturn = True

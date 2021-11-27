@@ -1,11 +1,11 @@
-
+float zz = 1.666
 void function(int v, string n, int x){
     if (v > 0.0){
         n = "Mayor"
         x = 5
         float xar = 900 + x
     }
-
+    zz = "asd"
     int z = 0
 
     int variable1 = 1
