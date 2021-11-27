@@ -1,4 +1,4 @@
-float zz = 1.666
+zz = 1.666
 void function(int v, string n, int x){
     if (v > 0.0){
         n = "Mayor"
@@ -37,7 +37,7 @@ int foo(int foo1, string foo2){
         return 99 -  foo8 - 889
     }
     float result = foo8 + foo3
-    return result
+    return resultset2
 
 }
 
