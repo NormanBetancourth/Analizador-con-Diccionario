@@ -15,13 +15,14 @@ void function(int v, string n, int x){
             int variable2 = 1
             if(x < 99){
                 int variable3 = 3
+                int fibo = 99
             }
         }
         int variable2 = 1
         int variable3 = 3
     }
 
-    variable3 = 3
+    fibo = 3
 }
 
 
@@ -30,11 +31,13 @@ d = 999
 
 int foo(int foo1, string foo2){
     int foo3 = 0000 + foo1
-    while(foo1 > 10) {
+    while(foo1 > "10") {
         float foo8 = 10
 
         return 99 -  foo8 - 889
     }
+    float result = foo8 + foo3
+    return result
 
 }
 
@@ -52,7 +55,7 @@ void foo(int var1, string var2){
 
 
 
-int suma(int limite, string sstream){
+int suma(int limite){
     int sese = 0000 + limite
     while(limite > 10){
         int otroINt = 0
@@ -62,5 +65,8 @@ int suma(int limite, string sstream){
 
 int funcionSinParams(){
     int x = 10
+    if(x != 10){
+        return "fallo"
+    }
     return x
 }
